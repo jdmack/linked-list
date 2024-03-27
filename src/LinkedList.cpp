@@ -52,7 +52,8 @@ void LinkedList::removeNode(Node * node)
 {
 
     if (node->previous_ == nullptr) {
-        node->next_->previous_ = nullptr; 
+        if (node->next_ != nullptr)
+            node->next_->previous_ = nullptr; 
         head_ = node->next_;
     }
     else {
@@ -60,7 +61,8 @@ void LinkedList::removeNode(Node * node)
     }
 
     if (node->next_ == nullptr) { 
-        node->previous_->next_ = nullptr;
+        if (node->previous_ != nullptr)
+            node->previous_->next_ = nullptr;
         tail_ = node->previous_;
     }
     else {

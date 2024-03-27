@@ -29,13 +29,13 @@ int main(int argc, char ** argv)
 
     LinkedList list;
     list.insert(0);
-    list.insert(1);
-    list.insert(2);
-    list.insert(3);
+    // list.insert(1);
+    // list.insert(2);
+    // list.insert(3);
 
     std::cout << list.toStr() << std::endl;
 
-    list.remove(2);
+    list.remove(0);
 
     std::cout << list.toStr() << std::endl;
 

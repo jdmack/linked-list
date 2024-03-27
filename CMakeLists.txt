@@ -6,6 +6,8 @@ project(LinkedList CXX)
 add_library(project_options INTERFACE)
 target_compile_features(project_options INTERFACE cxx_std_17)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 ## Add the src to the build
 add_subdirectory(src)
 
@@ -23,8 +25,8 @@ if (ENABLE_TEST)
 
 #    endif()
 
-   add_library(Catch INTERFACE)
-   target_include_directories(Catch INTERFACE ${CATCH2_INCLUDE_DIR})
+   # add_library(Catch INTERFACE)
+   # target_include_directories(Catch INTERFACE ${CATCH2_INCLUDE_DIR})
    add_subdirectory(test)                       
 
 endif()
