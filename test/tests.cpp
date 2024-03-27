@@ -99,4 +99,47 @@ TEST_CASE("Remove tail from list", "[remove]")
 TEST_CASE("Removing multiple elements", "[remove]")
 {
     LinkedList list;
+
+    for (int i = 0; i < 10 ; ++i) {
+        list.insert(i);
+    }
+    REQUIRE(list.toStr() == "[0 1 2 3 4 5 6 7 8 9]");
+
+    for (int i = 0; i < 10 ; ++i) {
+        list.remove(i);
+    }
+    REQUIRE(list.toStr() == "[]");
+}
+
+TEST_CASE("Multiple insertions and removals", "[other]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    list.remove(1);
+    list.insert(3);
+    list.insert(4);
+    list.remove(0);
+    list.insert(5);
+    list.insert(6);
+    list.remove(5);
+    list.insert(7);
+    list.remove(7);
+    REQUIRE(list.toStr() == "[2 3 4 6]");
+
+    list.insert(8);
+    list.insert(9);
+    REQUIRE(list.toStr() == "[2 3 4 6 8 9]");
+
+    list.remove(2);
+    list.remove(3);
+    list.remove(9);
+    list.remove(4);
+    list.remove(6);
+    list.remove(8);
+    REQUIRE(list.toStr() == "[]");
 }
