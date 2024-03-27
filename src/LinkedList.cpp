@@ -1,4 +1,5 @@
 #include <sstream>
+#include <exception>
 
 #include "LinkedList.h"
 
@@ -43,6 +44,24 @@ void LinkedList::remove(int i)
         currentNode = currentNode->next_;
     }
 }
+
+void LinkedList::removeIndex(int index)
+{
+    // Verify index is within occupancy range
+    if ((index < 0) || (index >= occupancy_))
+        throw std::out_of_range(std::string(
+            "index " + std::to_string(index) + 
+            " out of range; occupancy=" + std::to_string(occupancy_)));
+
+    Node * currentNode = head_;
+
+    for (int i = 0; i < index; ++i) {
+        if (currentNode != nullptr)
+            currentNode = currentNode->next_;
+    }
+    removeNode(currentNode);
+}
+
 
 void LinkedList::lookup(int i)
 {

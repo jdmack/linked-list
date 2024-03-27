@@ -143,3 +143,48 @@ TEST_CASE("Multiple insertions and removals", "[other]")
     list.remove(8);
     REQUIRE(list.toStr() == "[]");
 }
+
+TEST_CASE("Remove element by index", "[remove]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+
+    list.removeIndex(2);
+    list.removeIndex(2);
+    list.removeIndex(0);
+    list.removeIndex(0);
+    REQUIRE(list.toStr() == "[]");
+}
+
+TEST_CASE("Remove element by index - out of range", "[remove]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+
+    REQUIRE_THROWS_AS(list.removeIndex(4), std::out_of_range);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+}
+
+TEST_CASE("Remove element by index - negative index", "[remove]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+
+    REQUIRE_THROWS_AS(list.removeIndex(-1), std::out_of_range);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+}

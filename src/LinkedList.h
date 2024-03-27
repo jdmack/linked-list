@@ -24,6 +24,8 @@ class LinkedList
         void remove(int i);
         void lookup(int i);
 
+        void removeIndex(int i);
+
         std::string toStr();
 
     private:
