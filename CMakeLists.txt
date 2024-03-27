@@ -10,10 +10,10 @@ target_compile_features(project_options INTERFACE cxx_std_17)
 add_subdirectory(src)
 
 ## Enable/Disable Testing
-# option(ENABLE_TEST "Turn on to enable tests" ON)
+option(ENABLE_TEST "Turn on to enable tests" ON)
 
-# if (ENABLE_TEST)                           
-#    enable_testing() 
+if (ENABLE_TEST)                           
+   enable_testing() 
                                                                            
 #    if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/import/downloads/catch2/catch.hpp)          
                  
@@ -23,8 +23,8 @@ add_subdirectory(src)
 
 #    endif()
 
-#    add_library(Catch INTERFACE)
-#    target_include_directories(Catch INTERFACE ${CATCH2_INCLUDE_DIR})
-#    add_subdirectory(test)                       
+   add_library(Catch INTERFACE)
+   target_include_directories(Catch INTERFACE ${CATCH2_INCLUDE_DIR})
+   add_subdirectory(test)                       
 
-# endif()
+endif()
