@@ -3,9 +3,21 @@
 
 #include <list>
 #include <string>
+/**
+ * LinkedList implements a doubly linked list with template types
+ * and basic Node recycling.
+ */
 template <class T>
 class LinkedList
 {
+    /**
+     * Node is a container for a single element in the list.
+     * A copy of the data is created in the list.
+     * It is specific to this implmentation of a LinkedList
+     * so it is a nested class of LinkedList.
+     * Uses the same template type passed to LinkedList.
+     * 
+     */
     template <class T2>
     class Node
     {
@@ -43,7 +55,7 @@ class LinkedList
         Node<T>* tail_;
         int occupancy_;
 
-        std::list<Node<T>*> recycleBin;
+        std::list<Node<T>*> recycleBin_;
 
         void removeNode(Node<T>*& node);
         Node<T>* getNode(int index);

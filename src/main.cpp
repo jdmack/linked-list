@@ -1,28 +1,3 @@
-/*
-Create a C++ program that implements a linked list. The linked list should be
-a doubly linked list, allowing movement forward and backward. This program
-should allow you to add and remove nodes from the list. Each node should
-contain a reference to application data. The program does not have to provide
-user interaction. Please include units tests for the program.
-
-[X] LinkedList header
-[X] insert()
-[X] insert() index
-[X] remove()
-[X] lookup()
-[X] []
-[X] tests
-[X] size()
-[X] memory leaks
-[X] templates
-[X] node recycling
-[ ] comments
-
-
-
-
-*/
-
 #include <iostream>
 #include <list>
 #include "LinkedList.h"

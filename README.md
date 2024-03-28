@@ -13,3 +13,8 @@ user interaction. Please include units tests for the program.
 
 ## To Run Tests
 `./tests`
+
+
+### Possible Improvements
+* Make index parameters unsigned and remove some negative index checks
+* Have recycleNode compare the size of the recycleBin to the current occupancy and delete Nodes from the recycleBin to bring it down to 1/4 of the current size
