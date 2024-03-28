@@ -6,14 +6,14 @@
 
 TEST_CASE("Create list", "[create]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE(list.toStr() == "[]");
 }
 
 TEST_CASE("Inserting single element", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     REQUIRE(list.toStr() == "[0]");
@@ -21,7 +21,7 @@ TEST_CASE("Inserting single element", "[insert]")
 
 TEST_CASE("Inserting multiple elements", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     REQUIRE(list.toStr() == "[0]");
@@ -38,7 +38,7 @@ TEST_CASE("Inserting multiple elements", "[insert]")
 
 TEST_CASE("Insert at index 0 in empty list", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE_NOTHROW(list.insert(0, 0));
     REQUIRE(list.toStr() == "[0]");
@@ -46,7 +46,7 @@ TEST_CASE("Insert at index 0 in empty list", "[insert]")
 
 TEST_CASE("Insert at out of bounds index in empty list", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE_THROWS_AS(list.insert(0, 1), std::out_of_range);
     REQUIRE(list.toStr() == "[]");
@@ -54,7 +54,7 @@ TEST_CASE("Insert at out of bounds index in empty list", "[insert]")
 
 TEST_CASE("Insert at negative index in empty list", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE_THROWS_AS(list.insert(0, -1), std::out_of_range);
     REQUIRE(list.toStr() == "[]");
@@ -62,7 +62,7 @@ TEST_CASE("Insert at negative index in empty list", "[insert]")
 
 TEST_CASE("Insert at index=occupancy ", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE_NOTHROW(list.insert(0, 0));
     REQUIRE_NOTHROW(list.insert(1, 1));
@@ -75,7 +75,7 @@ TEST_CASE("Insert at index=occupancy ", "[insert]")
 
 TEST_CASE("Insert multiple at index", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE_NOTHROW(list.insert(0, 0));
     REQUIRE(list.toStr() == "[0]");
@@ -115,7 +115,7 @@ TEST_CASE("Insert multiple at index", "[insert]")
 
 TEST_CASE("Insert at out of bounds index", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE_NOTHROW(list.insert(0, 0));
     REQUIRE_NOTHROW(list.insert(1, 1));
@@ -127,7 +127,7 @@ TEST_CASE("Insert at out of bounds index", "[insert]")
 
 TEST_CASE("Insert at negative index ", "[insert]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE_NOTHROW(list.insert(0, 0));
     REQUIRE_NOTHROW(list.insert(1, 1));
@@ -139,7 +139,7 @@ TEST_CASE("Insert at negative index ", "[insert]")
 
 TEST_CASE("Remove element from empty list", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.remove(0);
     REQUIRE(list.toStr() == "[]");
@@ -147,7 +147,7 @@ TEST_CASE("Remove element from empty list", "[remove]")
 
 TEST_CASE("Remove element from list with occupancy=1", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     REQUIRE(list.toStr() == "[0]");
@@ -158,7 +158,7 @@ TEST_CASE("Remove element from list with occupancy=1", "[remove]")
 
 TEST_CASE("Remove head from list", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     // Remove head from list with occupancy=2
     list.insert(0);
@@ -179,7 +179,7 @@ TEST_CASE("Remove head from list", "[remove]")
 
 TEST_CASE("Remove tail from list", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     // Remove tail from list with occupancy=2
     list.insert(0);
@@ -200,7 +200,7 @@ TEST_CASE("Remove tail from list", "[remove]")
 
 TEST_CASE("Removing multiple elements", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     for (int i = 0; i < 10 ; ++i) {
         list.insert(i);
@@ -215,7 +215,7 @@ TEST_CASE("Removing multiple elements", "[remove]")
 
 TEST_CASE("Multiple insertions and removals", "[other]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -248,7 +248,7 @@ TEST_CASE("Multiple insertions and removals", "[other]")
 
 TEST_CASE("Remove element by index", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -265,7 +265,7 @@ TEST_CASE("Remove element by index", "[remove]")
 
 TEST_CASE("Remove element by index - out of range", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -279,7 +279,7 @@ TEST_CASE("Remove element by index - out of range", "[remove]")
 
 TEST_CASE("Remove element by index - negative index", "[remove]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -293,7 +293,7 @@ TEST_CASE("Remove element by index - negative index", "[remove]")
 
 TEST_CASE("Element access via function - empty list", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE(list.toStr() == "[]");
 
@@ -303,7 +303,7 @@ TEST_CASE("Element access via function - empty list", "[access]")
 
 TEST_CASE("Element access via function - index out of range", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -317,7 +317,7 @@ TEST_CASE("Element access via function - index out of range", "[access]")
 
 TEST_CASE("Element access via function - index negative", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -331,7 +331,7 @@ TEST_CASE("Element access via function - index negative", "[access]")
 
 TEST_CASE("Element access via operator - empty list", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE(list.toStr() == "[]");
 
@@ -344,7 +344,7 @@ TEST_CASE("Element access via operator - empty list", "[access]")
 
 TEST_CASE("Element access via operator - index out of range", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -361,7 +361,7 @@ TEST_CASE("Element access via operator - index out of range", "[access]")
 
 TEST_CASE("Element access via operator - index negative", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -378,7 +378,7 @@ TEST_CASE("Element access via operator - index negative", "[access]")
 
 TEST_CASE("Element access via function - occupancy=1", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     REQUIRE(list.toStr() == "[0]");
@@ -392,7 +392,7 @@ TEST_CASE("Element access via function - occupancy=1", "[access]")
 
 TEST_CASE("Element access via function - occupancy=2", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -413,7 +413,7 @@ TEST_CASE("Element access via function - occupancy=2", "[access]")
 
 TEST_CASE("Element access via function - occupancy=3", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -440,7 +440,7 @@ TEST_CASE("Element access via function - occupancy=3", "[access]")
 
 TEST_CASE("Element access via operator - occupancy=1", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     REQUIRE(list.toStr() == "[0]");
@@ -454,7 +454,7 @@ TEST_CASE("Element access via operator - occupancy=1", "[access]")
 
 TEST_CASE("Element access via operator - occupancy=2", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -475,7 +475,7 @@ TEST_CASE("Element access via operator - occupancy=2", "[access]")
 
 TEST_CASE("Element access via operator - occupancy=3", "[access]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -502,14 +502,14 @@ TEST_CASE("Element access via operator - occupancy=3", "[access]")
 
 TEST_CASE("Lookup empty list", "[lookup]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     REQUIRE(list.lookup(0) == -1);
 }
 
 TEST_CASE("Lookup success with occupancy=1", "[lookup]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     REQUIRE(list.toStr() == "[0]");
@@ -520,7 +520,7 @@ TEST_CASE("Lookup success with occupancy=1", "[lookup]")
 
 TEST_CASE("Lookup success with occupancy=2", "[lookup]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -537,7 +537,7 @@ TEST_CASE("Lookup success with occupancy=2", "[lookup]")
 
 TEST_CASE("Lookup success with occupancy=3", "[lookup]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     list.insert(0);
     list.insert(1);
@@ -559,7 +559,7 @@ TEST_CASE("Lookup success with occupancy=3", "[lookup]")
 
 TEST_CASE("Lookup not found", "[lookup]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     // Lookup failure with occupany=1
     list.insert(0);
@@ -585,7 +585,7 @@ TEST_CASE("Lookup not found", "[lookup]")
 
 TEST_CASE("Size", "[size]")
 {
-    LinkedList list;
+    LinkedList<int> list;
 
     // Size of empty list
     REQUIRE(list.size() == 0);

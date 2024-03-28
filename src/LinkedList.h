@@ -3,33 +3,35 @@
 
 #include <list>
 #include <string>
+template <class T>
 class LinkedList
 {
+    template <class T2>
     class Node
     {
         public:
             Node() { }
-            Node(int i) : next_(nullptr), previous_(nullptr), data_(i) { } 
+            Node(const T2& data) : next_(nullptr), previous_(nullptr), data_(data) { } 
             ~Node() { };
 
-            Node* next_ {nullptr};
-            Node* previous_ {nullptr};
-            int data_ {0};
+            Node<T2>* next_ {nullptr};
+            Node<T2>* previous_ {nullptr};
+            T2 data_;
     };
 
     public:
         LinkedList();
         ~LinkedList();
 
-        void insert(int i);
-        void insert(int i, int index);
-        void remove(int i);
+        void insert(const  T& data);
+        void insert(const  T& data, int index);
+        void remove(const  T& data);
         void removeIndex(int index);
-        int lookup(int i);
+        int lookup(const  T& data);
 
-        int & at(int index);
+        T& at(int index);
 
-        int & operator [](int index) { return at(index); }
+        T& operator [](int index) { return at(index); }
 
         int size() { return occupancy_; }
 
@@ -37,17 +39,17 @@ class LinkedList
         std::string toStrDetails();
 
     private:
-        Node* head_;
-        Node* tail_;
+        Node<T>* head_;
+        Node<T>* tail_;
         int occupancy_;
 
-        std::list<Node*> recycleBin;
+        std::list<Node<T>*> recycleBin;
 
-        void removeNode(Node* & node);
-        Node* getNode(int index);
+        void removeNode(Node<T>*& node);
+        Node<T>* getNode(int index);
 
-        Node* allocateNode(int data);
-        void recycleNode(Node* node);
+        Node<T>* allocateNode(const T& data);
+        void recycleNode(Node<T>* node);
 };
 
 #endif

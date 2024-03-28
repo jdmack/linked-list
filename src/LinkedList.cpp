@@ -3,23 +3,27 @@
 
 #include "LinkedList.h"
 
-LinkedList::LinkedList() :
+template <typename T>
+LinkedList<T>::LinkedList() :
     head_(nullptr),
     tail_(nullptr),
-    occupancy_(0)
+    occupancy_(0),
+    recycleBin()
 {
 }
 
-LinkedList::~LinkedList()
+template <typename T>
+LinkedList<T>::~LinkedList()
 {
     for (auto& node : recycleBin) {
         delete node;
     }
 }
 
-void LinkedList::insert(int i)
+template <typename T>
+void LinkedList<T>::insert(const T& data)
 {
-    Node* newNode = allocateNode(i);
+    Node<T>* newNode = allocateNode(data);
 
     if (head_ == nullptr) {
         head_ = newNode;
@@ -33,7 +37,8 @@ void LinkedList::insert(int i)
     ++occupancy_;
 }
 
-void LinkedList::insert(int i, int index)
+template <typename T>
+void LinkedList<T>::insert(const T& data, int index)
 {
     // Verify index is within occupancy range
     // For this check, index is allowed to be equal to occupancy as that would
@@ -43,7 +48,7 @@ void LinkedList::insert(int i, int index)
             "index " + std::to_string(index) + 
             " out of range; occupancy=" + std::to_string(occupancy_)));
 
-    Node* newNode = allocateNode(i);
+    Node<T>* newNode = allocateNode(data);
 
     // If index is at end, insert after use tail, otherwise insert in front of index node
     if (index == occupancy_) {
@@ -59,7 +64,7 @@ void LinkedList::insert(int i, int index)
         }
     }
     else {
-        Node* nodeAtIndex = getNode(index);
+        Node<T>* nodeAtIndex = getNode(index);
 
         newNode->next_ = nodeAtIndex;
         newNode->previous_ = nodeAtIndex->previous_;
@@ -77,12 +82,13 @@ void LinkedList::insert(int i, int index)
     ++occupancy_;
 }
 
-void LinkedList::remove(int i)
+template <typename T>
+void LinkedList<T>::remove(const T& data)
 {
-    Node* currentNode = head_;
+    Node<T>* currentNode = head_;
 
     while (currentNode != nullptr) {
-        if (currentNode->data_ == i) {
+        if (currentNode->data_ == data) {
             removeNode(currentNode);
             break;
         }
@@ -91,7 +97,8 @@ void LinkedList::remove(int i)
     }
 }
 
-void LinkedList::removeIndex(int index)
+template <typename T>
+void LinkedList<T>::removeIndex(int index)
 {
     // Verify index is within occupancy range
     if ((index < 0) || (index >= occupancy_))
@@ -99,23 +106,24 @@ void LinkedList::removeIndex(int index)
             "index " + std::to_string(index) + 
             " out of range; occupancy=" + std::to_string(occupancy_)));
 
-    Node* node = getNode(index);
+    Node<T>* node = getNode(index);
 
     removeNode(node);
 }
 
 
-int LinkedList::lookup(int i)
+template <typename T>
+int LinkedList<T>::lookup(const T& data)
 {
     if (head_ == nullptr)
         return -1;
 
     int index = 0;
-    Node* currentNode = head_;
+    Node<T>* currentNode = head_;
 
     while (currentNode != nullptr) {
 
-        if (currentNode->data_ == i)
+        if (currentNode->data_ == data)
             return index;
 
         currentNode = currentNode->next_;
@@ -124,7 +132,8 @@ int LinkedList::lookup(int i)
     return -1;
 }
 
-void LinkedList::removeNode(Node* & node)
+template <typename T>
+void LinkedList<T>::removeNode(Node<T>*& node)
 {
     if (node == nullptr)
         return;
@@ -160,7 +169,8 @@ void LinkedList::removeNode(Node* & node)
     node = nullptr;
 }
 
-int & LinkedList::at(int index)
+template <typename T>
+T& LinkedList<T>::at(int index)
 {
     // Verify index is within occupancy range
     if ((index < 0) || (index >= occupancy_))
@@ -168,17 +178,19 @@ int & LinkedList::at(int index)
             "index " + std::to_string(index) + 
             " out of range; occupancy=" + std::to_string(occupancy_)));
 
-    Node* node = getNode(index);
+    Node<T>* node = getNode(index);
 
     return node->data_;
 }
-LinkedList::Node* LinkedList::getNode(int index)
+
+template <typename T>
+LinkedList<T>::Node<T>* LinkedList<T>::getNode(int index)
 {
     // Verify index is within occupancy range
     if ((index < 0) || (index >= occupancy_))
         return nullptr;
 
-    Node* currentNode = head_;
+    Node<T>* currentNode = head_;
 
     // Iterate through list to the 'index'th element
     int i = 0;
@@ -189,9 +201,10 @@ LinkedList::Node* LinkedList::getNode(int index)
     return currentNode;
 }
 
-LinkedList::Node* LinkedList::allocateNode(int data)
+template <typename T>
+LinkedList<T>::Node<T>* LinkedList<T>::allocateNode(const T& data)
 {
-    Node* node;
+    Node<T>* node;
 
     if (recycleBin.size() > 0) {
         node = recycleBin.front();
@@ -202,13 +215,14 @@ LinkedList::Node* LinkedList::allocateNode(int data)
         node->previous_ = nullptr;
     }
     else {
-        node = new Node(data);
+        node = new Node<T>(data);
     }
 
     return node;
 }
 
-void LinkedList::recycleNode(Node* node)
+template <typename T>
+void LinkedList<T>::recycleNode(Node<T>* node)
 {
     if (recycleBin.size() >= occupancy_ * 0.25f) {
         delete node;
@@ -219,9 +233,10 @@ void LinkedList::recycleNode(Node* node)
 }
 
 
-std::string LinkedList::toStr()
+template <typename T>
+std::string LinkedList<T>::toStr()
 {
-    Node* currentNode = head_;
+    Node<T>* currentNode = head_;
     std::stringstream ss;    
     bool first = true;
     
@@ -242,9 +257,10 @@ std::string LinkedList::toStr()
     return ss.str();
 }
 
-std::string LinkedList::toStrDetails()
+template <typename T>
+std::string LinkedList<T>::toStrDetails()
 {
-    Node* currentNode = head_;
+    Node<T>* currentNode = head_;
     std::stringstream ss;    
     
     ss << "[";
@@ -288,3 +304,4 @@ std::string LinkedList::toStrDetails()
     return ss.str();
 }
 
+template class LinkedList<int>;
