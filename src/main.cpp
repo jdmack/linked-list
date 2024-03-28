@@ -7,7 +7,7 @@ user interaction. Please include units tests for the program.
 
 [X] LinkedList header
 [X] insert()
-[ ] insert() index
+[X] insert() index
 [X] remove()
 [ ] lookup()
 [X] []

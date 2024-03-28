@@ -500,7 +500,42 @@ TEST_CASE("Element access via operator - occupancy=3", "[access]")
     REQUIRE(list.toStr() == "[0 1 2]");
 }
 
-TEST_CASE("getNode() tests", "[function]")
+TEST_CASE("Lookup empty list", "[lookup]")
+{
+    LinkedList list;
+
+    REQUIRE(list.lookup(0) == -1);
+}
+
+TEST_CASE("Lookup success with occupancy=1", "[lookup]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    REQUIRE(list.toStr() == "[0]");
+
+    REQUIRE(list.lookup(0) == 0);
+    REQUIRE(list.toStr() == "[0]");
+}
+
+TEST_CASE("Lookup success with occupancy=2", "[lookup]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    // Lookup head
+    REQUIRE(list.lookup(0) == 0);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    // Lookup tail
+    REQUIRE(list.lookup(1) == 1);
+    REQUIRE(list.toStr() == "[0 1]");
+}
+
+TEST_CASE("Lookup success with occupancy=3", "[lookup]")
 {
     LinkedList list;
 
@@ -509,4 +544,57 @@ TEST_CASE("getNode() tests", "[function]")
     list.insert(2);
     REQUIRE(list.toStr() == "[0 1 2]");
 
+    // Lookup head
+    REQUIRE(list.lookup(0) == 0);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    // Lookup middle
+    REQUIRE(list.lookup(1) == 1);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    // Lookup tail
+    REQUIRE(list.lookup(2) == 2);
+    REQUIRE(list.toStr() == "[0 1 2]");
 }
+
+TEST_CASE("Lookup not found", "[lookup]")
+{
+    LinkedList list;
+
+    // Lookup failure with occupany=1
+    list.insert(0);
+    REQUIRE(list.toStr() == "[0]");
+
+    REQUIRE(list.lookup(-1) == -1);
+    REQUIRE(list.toStr() == "[0]");
+
+    // Lookup failure with occupany=2
+    list.insert(1);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    REQUIRE(list.lookup(-1) == -1);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    // Lookup failure with occupany=3
+    list.insert(2);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    REQUIRE(list.lookup(-1) == -1);
+    REQUIRE(list.toStr() == "[0 1 2]");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

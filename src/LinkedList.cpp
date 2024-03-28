@@ -104,7 +104,21 @@ void LinkedList::removeIndex(int index)
 
 int LinkedList::lookup(int i)
 {
+    if (head_ == nullptr)
+        return -1;
 
+    int index = 0;
+    Node * currentNode = head_;
+
+    while (currentNode != nullptr) {
+
+        if (currentNode->data_ == i)
+            return index;
+
+        currentNode = currentNode->next_;
+        ++index;
+    }
+    return -1;
 }
 
 void LinkedList::removeNode(Node * node)
