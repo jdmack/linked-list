@@ -9,7 +9,7 @@ user interaction. Please include units tests for the program.
 [X] insert()
 [X] insert() index
 [X] remove()
-[ ] lookup()
+[X] lookup()
 [X] []
 [X] tests
 [ ] size()

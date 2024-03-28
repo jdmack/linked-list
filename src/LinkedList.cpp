@@ -121,7 +121,7 @@ int LinkedList::lookup(int i)
     return -1;
 }
 
-void LinkedList::removeNode(Node * node)
+void LinkedList::removeNode(Node* & node)
 {
     if (node == nullptr)
         return;
@@ -153,6 +153,8 @@ void LinkedList::removeNode(Node * node)
     }
 
     --occupancy_;
+    delete node;
+    node = nullptr;
 }
 
 int & LinkedList::at(int index)

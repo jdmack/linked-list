@@ -9,7 +9,7 @@ class LinkedList
         public:
             Node() { }
             Node(int i) : next_(nullptr), previous_(nullptr), data_(i) { } 
-            ~Node();
+            ~Node() { };
 
             Node * next_ {nullptr};
             Node * previous_ {nullptr};
@@ -38,7 +38,7 @@ class LinkedList
         Node * tail_;
         int occupancy_;
 
-        void removeNode(Node * node);
+        void removeNode(Node* & node);
         Node * getNode(int index);
 
 };
