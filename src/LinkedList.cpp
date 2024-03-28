@@ -15,6 +15,13 @@ LinkedList<T>::LinkedList() :
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
+    Node<T>* currentNode = head_;
+    while (currentNode != nullptr) {
+        Node<T>* deletePtr = currentNode;
+        currentNode = currentNode->next_;
+        delete deletePtr;
+    }
+
     for (auto& node : recycleBin) {
         delete node;
     }

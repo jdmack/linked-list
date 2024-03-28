@@ -14,7 +14,7 @@ user interaction. Please include units tests for the program.
 [X] tests
 [X] size()
 [X] memory leaks
-[ ] templates
+[X] templates
 [X] node recycling
 [ ] comments
 
@@ -29,8 +29,7 @@ user interaction. Please include units tests for the program.
 
 int main(int argc, char ** argv)
 {
-    std::cout << "Hello World" << std::endl;
-    std::list<int> l;
+    // std::cout << "Hello World" << std::endl;
     LinkedList<int> list;
     list.insert(0, 0);
     list.insert(1, 1);
