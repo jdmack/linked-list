@@ -1,6 +1,7 @@
 #ifndef __LINKED_LIST_H__
 #define __LINKED_LIST_H__
 
+#include <list>
 #include <string>
 class LinkedList
 {
@@ -11,8 +12,8 @@ class LinkedList
             Node(int i) : next_(nullptr), previous_(nullptr), data_(i) { } 
             ~Node() { };
 
-            Node * next_ {nullptr};
-            Node * previous_ {nullptr};
+            Node* next_ {nullptr};
+            Node* previous_ {nullptr};
             int data_ {0};
     };
 
@@ -36,15 +37,17 @@ class LinkedList
         std::string toStrDetails();
 
     private:
-        Node * head_;
-        Node * tail_;
+        Node* head_;
+        Node* tail_;
         int occupancy_;
 
+        std::list<Node*> recycleBin;
+
         void removeNode(Node* & node);
-        Node * getNode(int index);
+        Node* getNode(int index);
 
+        Node* allocateNode(int data);
+        void recycleNode(Node* node);
 };
-
-
 
 #endif

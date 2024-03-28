@@ -12,7 +12,7 @@ user interaction. Please include units tests for the program.
 [X] lookup()
 [X] []
 [X] tests
-[ ] size()
+[X] size()
 [X] memory leaks
 [ ] templates
 [ ] node recycling
