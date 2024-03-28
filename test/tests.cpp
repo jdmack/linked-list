@@ -583,6 +583,31 @@ TEST_CASE("Lookup not found", "[lookup]")
     REQUIRE(list.toStr() == "[0 1 2]");
 }
 
+TEST_CASE("Size", "[size]")
+{
+    LinkedList list;
+
+    // Size of empty list
+    REQUIRE(list.size() == 0);
+    REQUIRE(list.toStr() == "[]");
+
+    // Size of list with occupancy=1
+    list.insert(0);
+    REQUIRE(list.size() == 1);
+    REQUIRE(list.toStr() == "[0]");
+
+    // Size of list with occupancy=2
+    list.insert(1);
+    REQUIRE(list.size() == 2);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    // Size of list with occupancy=3
+    list.insert(2);
+    REQUIRE(list.size() == 3);
+    REQUIRE(list.toStr() == "[0 1 2]");
+}
+
+
 
 
 

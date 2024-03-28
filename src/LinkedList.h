@@ -30,6 +30,8 @@ class LinkedList
 
         int & operator [](int index) { return at(index); }
 
+        int size() { return occupancy_; }
+
         std::string toStr();
         std::string toStrDetails();
 

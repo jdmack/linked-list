@@ -13,7 +13,7 @@ user interaction. Please include units tests for the program.
 [X] []
 [X] tests
 [ ] size()
-[ ] memory leaks
+[X] memory leaks
 [ ] templates
 [ ] node recycling
 [ ] comments
