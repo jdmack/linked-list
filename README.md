@@ -8,8 +8,11 @@ user interaction. Please include units tests for the program.
 
 ## To Build
 `cd build`
+
 `cmake ..`
+
 `make`
+
 
 ## To Run Tests
 `./tests`
