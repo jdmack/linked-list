@@ -7,11 +7,13 @@ user interaction. Please include units tests for the program.
 
 [X] LinkedList header
 [X] insert()
+[ ] insert() index
 [X] remove()
-[X] lookup()
+[ ] lookup()
 [X] []
 [X] tests
-[ ] 
+[ ] size()
+[ ] memory leaks
 [ ] templates
 [ ] node recycling
 [ ] comments
@@ -29,16 +31,20 @@ int main(int argc, char ** argv)
     std::cout << "Hello World" << std::endl;
 
     LinkedList list;
-    list.insert(0);
-    // list.insert(1);
+    list.insert(0, 0);
+    list.insert(1, 1);
     // list.insert(2);
     // list.insert(3);
 
     std::cout << list.toStr() << std::endl;
+    std::cout << list.toStrDetails() << std::endl;
 
-    list.remove(0);
+    list.insert(2, 1);
+
+    // list.remove(0);
 
     std::cout << list.toStr() << std::endl;
+    std::cout << list.toStrDetails() << std::endl;
 
     return 0;
 }

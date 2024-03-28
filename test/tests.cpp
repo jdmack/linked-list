@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_MAIN
 
+#include <iostream>
 #include "catch.hpp"
 #include "../src/LinkedList.h"
 
@@ -33,6 +34,107 @@ TEST_CASE("Inserting multiple elements", "[insert]")
 
     list.insert(3);
     REQUIRE(list.toStr() == "[0 1 2 3]");
+}
+
+TEST_CASE("Insert at index 0 in empty list", "[insert]")
+{
+    LinkedList list;
+
+    REQUIRE_NOTHROW(list.insert(0, 0));
+    REQUIRE(list.toStr() == "[0]");
+}
+
+TEST_CASE("Insert at out of bounds index in empty list", "[insert]")
+{
+    LinkedList list;
+
+    REQUIRE_THROWS_AS(list.insert(0, 1), std::out_of_range);
+    REQUIRE(list.toStr() == "[]");
+}
+
+TEST_CASE("Insert at negative index in empty list", "[insert]")
+{
+    LinkedList list;
+
+    REQUIRE_THROWS_AS(list.insert(0, -1), std::out_of_range);
+    REQUIRE(list.toStr() == "[]");
+}
+
+TEST_CASE("Insert at index=occupancy ", "[insert]")
+{
+    LinkedList list;
+
+    REQUIRE_NOTHROW(list.insert(0, 0));
+    REQUIRE_NOTHROW(list.insert(1, 1));
+    REQUIRE_NOTHROW(list.insert(2, 2));
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    REQUIRE_NOTHROW(list.insert(3, 3));
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+}
+
+TEST_CASE("Insert multiple at index", "[insert]")
+{
+    LinkedList list;
+
+    REQUIRE_NOTHROW(list.insert(0, 0));
+    REQUIRE(list.toStr() == "[0]");
+    
+    std::cout << list.toStrDetails();
+
+    // Insert at head with occupancy=1
+    REQUIRE_NOTHROW(list.insert(1, 0));
+    REQUIRE(list.toStr() == "[1 0]");
+
+    // Insert at tail with occupancy=1
+    REQUIRE_NOTHROW(list.removeIndex(0));
+    REQUIRE(list.toStr() == "[0]");
+
+    REQUIRE_NOTHROW(list.insert(1, 1));
+    REQUIRE(list.toStr() == "[0 1]");
+
+    // Insert at head with occupancy=2
+    REQUIRE(list.toStr() == "[0 1]");
+    REQUIRE_NOTHROW(list.insert(2, 0));
+    REQUIRE(list.toStr() == "[2 0 1]");
+
+    // Insert at tail with occupancy=2
+    REQUIRE_NOTHROW(list.removeIndex(0));
+    REQUIRE(list.toStr() == "[0 1]");
+
+    REQUIRE_NOTHROW(list.insert(2, 2));
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    // Insert before tail with occupancy=2
+    REQUIRE_NOTHROW(list.removeIndex(2));
+    REQUIRE(list.toStr() == "[0 1]");
+
+    REQUIRE_NOTHROW(list.insert(2, 1));
+    REQUIRE(list.toStr() == "[0 2 1]");
+}
+
+TEST_CASE("Insert at out of bounds index", "[insert]")
+{
+    LinkedList list;
+
+    REQUIRE_NOTHROW(list.insert(0, 0));
+    REQUIRE_NOTHROW(list.insert(1, 1));
+    REQUIRE_NOTHROW(list.insert(2, 2));
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    REQUIRE_THROWS_AS(list.insert(3, 4), std::out_of_range);
+}
+
+TEST_CASE("Insert at negative index ", "[insert]")
+{
+    LinkedList list;
+
+    REQUIRE_NOTHROW(list.insert(0, 0));
+    REQUIRE_NOTHROW(list.insert(1, 1));
+    REQUIRE_NOTHROW(list.insert(2, 2));
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    REQUIRE_THROWS_AS(list.insert(3, -1), std::out_of_range);
 }
 
 TEST_CASE("Remove element from empty list", "[remove]")
@@ -396,4 +498,15 @@ TEST_CASE("Element access via operator - occupancy=3", "[access]")
     REQUIRE_NOTHROW(value = list[2]);
     REQUIRE(value == 2);
     REQUIRE(list.toStr() == "[0 1 2]");
+}
+
+TEST_CASE("getNode() tests", "[function]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
 }

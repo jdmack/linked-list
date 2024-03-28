@@ -30,12 +30,55 @@ void LinkedList::insert(int i)
     ++occupancy_;
 }
 
+void LinkedList::insert(int i, int index)
+{
+    // Verify index is within occupancy range
+    // For this check, index is allowed to be equal to occupancy as that would
+    // be inserting at the tail
+    if ((index < 0) || (index > occupancy_))
+        throw std::out_of_range(std::string(
+            "index " + std::to_string(index) + 
+            " out of range; occupancy=" + std::to_string(occupancy_)));
+
+    Node * newNode = new Node(i);
+
+    // If index is at end, insert after use tail, otherwise insert in front of index node
+    if (index == occupancy_) {
+        // Special case when inserting at 0 into empty list
+        if (tail_ == nullptr) {
+            head_ = newNode;
+            tail_ = newNode;
+        }
+        else {
+            tail_->next_ = newNode;
+            newNode->previous_ = tail_;
+            tail_ = newNode;
+        }
+    }
+    else {
+        Node * nodeAtIndex = getNode(index);
+
+        newNode->next_ = nodeAtIndex;
+        newNode->previous_ = nodeAtIndex->previous_;
+
+        // If inserting at front, assign new head
+        if (nodeAtIndex == head_)
+            head_ = newNode;
+        else
+            nodeAtIndex->previous_->next_ = newNode;
+
+        nodeAtIndex->previous_ = newNode;
+
+    }
+
+    ++occupancy_;
+}
+
 void LinkedList::remove(int i)
 {
     Node * currentNode = head_;
 
     while (currentNode != nullptr) {
-
         if (currentNode->data_ == i) {
             removeNode(currentNode);
             break;
@@ -53,22 +96,22 @@ void LinkedList::removeIndex(int index)
             "index " + std::to_string(index) + 
             " out of range; occupancy=" + std::to_string(occupancy_)));
 
-    Node * currentNode = head_;
+    Node * node = getNode(index);
 
-    for (int i = 0; i < index; ++i) {
-        if (currentNode != nullptr)
-            currentNode = currentNode->next_;
-    }
-    removeNode(currentNode);
+    removeNode(node);
 }
 
 
-void LinkedList::lookup(int i)
+int LinkedList::lookup(int i)
 {
+
 }
 
 void LinkedList::removeNode(Node * node)
 {
+    if (node == nullptr)
+        return;
+
     // Check if node is head (prev is null)
     if (node->previous_ == nullptr) {
         if (node->next_ != nullptr) {
@@ -106,13 +149,25 @@ int & LinkedList::at(int index)
             "index " + std::to_string(index) + 
             " out of range; occupancy=" + std::to_string(occupancy_)));
 
+    Node * node = getNode(index);
+
+    return node->data_;
+}
+LinkedList::Node * LinkedList::getNode(int index)
+{
+    // Verify index is within occupancy range
+    if ((index < 0) || (index >= occupancy_))
+        return nullptr;
+
     Node * currentNode = head_;
 
-    for (int i = 0; i < index; ++i) {
-        if (currentNode != nullptr)
-            currentNode = currentNode->next_;
+    // Iterate through list to the 'index'th element
+    int i = 0;
+    while ((currentNode != nullptr) && (i < index)) {
+        currentNode = currentNode->next_;
+        ++i;
     }
-    return currentNode->data_;
+    return currentNode;
 }
 
 std::string LinkedList::toStr()
@@ -138,3 +193,48 @@ std::string LinkedList::toStr()
     return ss.str();
 }
 
+std::string LinkedList::toStrDetails()
+{
+    Node * currentNode = head_;
+    std::stringstream ss;    
+    
+    ss << "[";
+
+    ss << "head=";
+
+    if (head_ == nullptr)
+        ss << "n";
+    else
+        ss << head_->data_;
+
+    ss << ", tail=";
+
+    if (tail_ == nullptr)
+        ss << "n";
+    else
+        ss << tail_->data_;
+
+    while (currentNode != nullptr) {
+        ss << "\n\t(prev=";
+
+        if (currentNode->previous_ == nullptr)
+            ss << "n";
+        else
+            ss << currentNode->previous_->data_;
+
+        ss << ", data=" << currentNode->data_ << ", next=";
+
+        if (currentNode->next_ == nullptr)
+            ss << "n";
+        else
+            ss << currentNode->next_->data_;
+
+        ss << ")";
+
+        currentNode = currentNode->next_;
+    }
+
+    ss << "\n]";
+
+    return ss.str();
+}

@@ -21,15 +21,17 @@ class LinkedList
         ~LinkedList();
 
         void insert(int i);
+        void insert(int i, int index);
         void remove(int i);
-        void lookup(int i);
+        void removeIndex(int index);
+        int lookup(int i);
 
         int & at(int index);
-        void removeIndex(int index);
 
         int & operator [](int index) { return at(index); }
 
         std::string toStr();
+        std::string toStrDetails();
 
     private:
         Node * head_;
@@ -37,6 +39,7 @@ class LinkedList
         int occupancy_;
 
         void removeNode(Node * node);
+        Node * getNode(int index);
 
 };
 
