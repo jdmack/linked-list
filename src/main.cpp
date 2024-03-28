@@ -6,11 +6,12 @@ contain a reference to application data. The program does not have to provide
 user interaction. Please include units tests for the program.
 
 [X] LinkedList header
-[ ] insert()
-[ ] remove()
-[ ] lookup()
-[ ] []
-[ ] tests
+[X] insert()
+[X] remove()
+[X] lookup()
+[X] []
+[X] tests
+[ ] 
 [ ] templates
 [ ] node recycling
 [ ] comments

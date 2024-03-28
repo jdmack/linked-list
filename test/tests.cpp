@@ -154,10 +154,10 @@ TEST_CASE("Remove element by index", "[remove]")
     list.insert(3);
     REQUIRE(list.toStr() == "[0 1 2 3]");
 
-    list.removeIndex(2);
-    list.removeIndex(2);
-    list.removeIndex(0);
-    list.removeIndex(0);
+    REQUIRE_NOTHROW(list.removeIndex(2));
+    REQUIRE_NOTHROW(list.removeIndex(2));
+    REQUIRE_NOTHROW(list.removeIndex(0));
+    REQUIRE_NOTHROW(list.removeIndex(0));
     REQUIRE(list.toStr() == "[]");
 }
 
