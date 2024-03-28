@@ -69,26 +69,50 @@ void LinkedList::lookup(int i)
 
 void LinkedList::removeNode(Node * node)
 {
-
+    // Check if node is head (prev is null)
     if (node->previous_ == nullptr) {
-        if (node->next_ != nullptr)
+        if (node->next_ != nullptr) {
+            // Set the next node to be new head
             node->next_->previous_ = nullptr; 
+        }
         head_ = node->next_;
     }
     else {
+        // Node is not head
         node->previous_->next_ = node->next_;
     }
 
+    // Check if node is tail (next is null)
     if (node->next_ == nullptr) { 
-        if (node->previous_ != nullptr)
+        if (node->previous_ != nullptr) {
+            // Set the previous node to be new tail
             node->previous_->next_ = nullptr;
+        }
         tail_ = node->previous_;
     }
     else {
+        // Node is not tail
         node->next_->previous_ = node->previous_;
     }
 
     --occupancy_;
+}
+
+int & LinkedList::at(int index)
+{
+    // Verify index is within occupancy range
+    if ((index < 0) || (index >= occupancy_))
+        throw std::out_of_range(std::string(
+            "index " + std::to_string(index) + 
+            " out of range; occupancy=" + std::to_string(occupancy_)));
+
+    Node * currentNode = head_;
+
+    for (int i = 0; i < index; ++i) {
+        if (currentNode != nullptr)
+            currentNode = currentNode->next_;
+    }
+    return currentNode->data_;
 }
 
 std::string LinkedList::toStr()

@@ -188,3 +188,212 @@ TEST_CASE("Remove element by index - negative index", "[remove]")
     REQUIRE_THROWS_AS(list.removeIndex(-1), std::out_of_range);
     REQUIRE(list.toStr() == "[0 1 2 3]");
 }
+
+TEST_CASE("Element access via function - empty list", "[access]")
+{
+    LinkedList list;
+
+    REQUIRE(list.toStr() == "[]");
+
+    REQUIRE_THROWS_AS(list.at(0), std::out_of_range);
+    REQUIRE(list.toStr() == "[]");
+}
+
+TEST_CASE("Element access via function - index out of range", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+
+    REQUIRE_THROWS_AS(list.at(4), std::out_of_range);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+}
+
+TEST_CASE("Element access via function - index negative", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+
+    REQUIRE_THROWS_AS(list.at(-1), std::out_of_range);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+}
+
+TEST_CASE("Element access via operator - empty list", "[access]")
+{
+    LinkedList list;
+
+    REQUIRE(list.toStr() == "[]");
+
+    int value = 1337;
+
+    REQUIRE_THROWS_AS(value = list[0], std::out_of_range);
+    REQUIRE(value == 1337);
+    REQUIRE(list.toStr() == "[]");
+}
+
+TEST_CASE("Element access via operator - index out of range", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+
+    int value = 1337;
+
+    REQUIRE_THROWS_AS(value = list[4], std::out_of_range);
+    REQUIRE(value == 1337);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+}
+
+TEST_CASE("Element access via operator - index negative", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    list.insert(3);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+
+    int value = 1337;
+
+    REQUIRE_THROWS_AS(value = list[-1], std::out_of_range);
+    REQUIRE(value == 1337);
+    REQUIRE(list.toStr() == "[0 1 2 3]");
+}
+
+TEST_CASE("Element access via function - occupancy=1", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    REQUIRE(list.toStr() == "[0]");
+
+    int value = 1337;
+
+    REQUIRE_NOTHROW(value = list.at(0));
+    REQUIRE(value == 0);
+    REQUIRE(list.toStr() == "[0]");
+}
+
+TEST_CASE("Element access via function - occupancy=2", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    int value = 1337;
+
+    // Access head element
+    REQUIRE_NOTHROW(value = list.at(0));
+    REQUIRE(value == 0);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    // Access tail element
+    REQUIRE_NOTHROW(value = list.at(1));
+    REQUIRE(value == 1);
+    REQUIRE(list.toStr() == "[0 1]");
+}
+
+TEST_CASE("Element access via function - occupancy=3", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    int value = 1337;
+
+    // Access head element
+    REQUIRE_NOTHROW(value = list.at(0));
+    REQUIRE(value == 0);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    // Access middle element
+    REQUIRE_NOTHROW(value = list.at(1));
+    REQUIRE(value == 1);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    // Access tail element
+    REQUIRE_NOTHROW(value = list.at(2));
+    REQUIRE(value == 2);
+    REQUIRE(list.toStr() == "[0 1 2]");
+}
+
+TEST_CASE("Element access via operator - occupancy=1", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    REQUIRE(list.toStr() == "[0]");
+
+    int value = 1337;
+
+    REQUIRE_NOTHROW(value = list[0]);
+    REQUIRE(value == 0);
+    REQUIRE(list.toStr() == "[0]");
+}
+
+TEST_CASE("Element access via operator - occupancy=2", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    int value = 1337;
+
+    // Access head element
+    REQUIRE_NOTHROW(value = list[0]);
+    REQUIRE(value == 0);
+    REQUIRE(list.toStr() == "[0 1]");
+
+    // Access tail element
+    REQUIRE_NOTHROW(value = list[1]);
+    REQUIRE(value == 1);
+    REQUIRE(list.toStr() == "[0 1]");
+}
+
+TEST_CASE("Element access via operator - occupancy=3", "[access]")
+{
+    LinkedList list;
+
+    list.insert(0);
+    list.insert(1);
+    list.insert(2);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    int value = 1337;
+
+    // Access head element
+    REQUIRE_NOTHROW(value = list[0]);
+    REQUIRE(value == 0);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    // Access middle element
+    REQUIRE_NOTHROW(value = list[1]);
+    REQUIRE(value == 1);
+    REQUIRE(list.toStr() == "[0 1 2]");
+
+    // Access tail element
+    REQUIRE_NOTHROW(value = list[2]);
+    REQUIRE(value == 2);
+    REQUIRE(list.toStr() == "[0 1 2]");
+}

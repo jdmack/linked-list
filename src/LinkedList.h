@@ -24,7 +24,10 @@ class LinkedList
         void remove(int i);
         void lookup(int i);
 
-        void removeIndex(int i);
+        int & at(int index);
+        void removeIndex(int index);
+
+        int & operator [](int index) { return at(index); }
 
         std::string toStr();
 
